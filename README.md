@@ -92,7 +92,7 @@ Your Kubernetes configuration includes:
 
 ## Live Demo
 
-> 🔗 **Live App**: [http://your-gke-ingress-domain.com](http://your-gke-ingress-domain.com)  
+> 🔗 **Live App**: [http://34.160.150.137/](http://34.160.150.137/)
 
 ---
 

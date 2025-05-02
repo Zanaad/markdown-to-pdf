@@ -3,7 +3,16 @@ import html2pdf from 'html2pdf.js';
 export default function ExportPDFButton() {
   const handleExport = () => {
     const element = document.getElementById('preview');
-    html2pdf().from(element).save('markdown.pdf');
+
+    const opt = {
+      margin: 0.5,
+      filename: 'markdown.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save();
   };
 
   return (
