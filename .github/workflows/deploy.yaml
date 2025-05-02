@@ -40,13 +40,13 @@ jobs:
 
       - name: Build and Push Image
         run: |
-          docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:latest .
-          docker push europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:latest
+          docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:$GITHUB_SHA .
+          docker push europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:$GITHUB_SHA
 
 
       - name: Deploy with Kustomize
         run: |
-          kustomize edit set image zanaad/markdown-to-pdf=europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:latest
+          kustomize edit set image zanaad/markdown-to-pdf=europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:$GITHUB_SHA
           kubectl get namespace markdown-to-pdf || kubectl create namespace markdown-to-pdf
           kubectl apply -k .
           
