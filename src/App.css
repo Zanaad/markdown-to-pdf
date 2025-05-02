@@ -1,4 +1,4 @@
-.app-container {
+ .app-container {
   text-align: center;
   padding: 2rem;
   min-height: 100vh;
@@ -49,9 +49,12 @@
   font-family: 'Courier New', Courier, monospace;
   overflow-y: auto;
   text-align: left;
-  margin-bottom: 30px;
 }
-
+#preview {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
 .app-container.light .markdown-editor,
 .app-container.light .markdown-preview {
   background-color: #f3f3f3;
