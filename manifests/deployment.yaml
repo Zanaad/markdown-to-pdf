@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: markdown-to-pdf
+  namespace: markdown-to-pdf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: markdown-to-pdf
+  template:
+    metadata:
+      labels:
+        app: markdown-to-pdf
+    spec:
+      containers:
+        - name: markdown-to-pdf
+          image: zanaad/markdown-to-pdf
+          ports:
+            - containerPort: 80
