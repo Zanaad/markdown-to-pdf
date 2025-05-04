@@ -1,0 +1,58 @@
+@page {
+  margin: 3cm;
+}
+body {
+  font-family: 'Times New Roman', serif;
+  font-size: 12pt;
+  line-height: 1.75;
+  text-align: justify;
+  color: #333;
+}
+h1 {
+  font-size: 24pt;
+  text-align: center;
+  color: #8b0000;
+}
+h2, h3 {
+  color: #8b0000;
+  margin-top: 1.5em;
+}
+p:first-of-type::first-letter {
+  float: left;
+  font-size: 3em;
+  line-height: 1;
+  padding-right: 0.1em;
+  color: #8b0000;
+}
+blockquote {
+  margin: 1em 2em;
+  padding-left: 1em;
+  border-left: 3px solid #aaa;
+  font-style: italic;
+}
+code {
+  background: #f4f4f4;
+  font-family: 'Courier New', monospace;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 0.95em;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+thead {
+  background-color: #f8f8f8;
+  border-bottom: 2px solid #8b0000;
+}
+tbody tr:nth-child(even) {
+  background-color: #fcfcfc;
+}

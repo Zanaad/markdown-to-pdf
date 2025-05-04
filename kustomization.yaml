@@ -1,11 +1,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - manifests/deployment.yaml
-  - manifests/service.yaml
+  - manifests/server-deployment.yaml
+  - manifests/server-service.yaml
+  - manifests/client-deployment.yaml
+  - manifests/client-service.yaml
   - manifests/ingress.yaml
 images:
-  - name: zanaad/markdown-to-pdf
-    newName: europe-west3-docker.pkg.dev/gke-project-458604/markdown-to-pdf-repo/markdown-to-pdf
+  - name: zanaad/markdown-client
+    newName: europe-west3-docker.pkg.dev/gke-project-458604/markdown-to-pdf-repo/client
+  - name: zanaad/markdown-server
+    newName: europe-west3-docker.pkg.dev/gke-project-458604/markdown-to-pdf-repo/server
 
 
