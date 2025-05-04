@@ -1,3 +1,6 @@
+const puppeteer = require('puppeteer'); 
+process.env.PUPPETEER_EXECUTABLE_PATH = puppeteer.executablePath();
+
 const express = require('express');
 const fs = require('fs');
 const { mdToPdf } = require('md-to-pdf');
