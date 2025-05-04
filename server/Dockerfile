@@ -29,6 +29,8 @@ COPY . .
 
 RUN npm install
 
+RUN npx puppeteer browsers install chrome
+
 EXPOSE 3001
 
 CMD ["node", "server.js"]
