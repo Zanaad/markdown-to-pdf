@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: markdown-server
+  ports:
+    - port: 3001
+      protocol: TCP
+      targetPort: 3001

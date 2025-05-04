@@ -3,14 +3,14 @@ name: Deploy to GKE
 on:
   push:
     branches:
-     - main
+      - main
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: gke-cluster
   GKE_LOCATION: europe-west3
-  IMAGE: markdown-to-pdf
-  BRANCH: ${{ github.ref_name }}
+  SERVER_IMAGE: server
+  CLIENT_IMAGE: client
 
 jobs:
   build-push-deploy:
@@ -38,19 +38,22 @@ jobs:
           location: '${{ env.GKE_LOCATION }}'
           project_id: '${{ env.PROJECT_ID }}'
 
-      - name: Build and Push Image
+      - name: Build and Push Images
         run: |
-          docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:$GITHUB_SHA .
-          docker push europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:$GITHUB_SHA
+          docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$SERVER_IMAGE:$GITHUB_SHA ./server
+          docker push europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$SERVER_IMAGE:$GITHUB_SHA
 
+          docker build -t europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$CLIENT_IMAGE:$GITHUB_SHA ./client
+          docker push europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$CLIENT_IMAGE:$GITHUB_SHA
 
-      - name: Deploy with Kustomize
+      - name: Update Kustomize Images and Deploy
         run: |
-          kustomize edit set image zanaad/markdown-to-pdf=europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$IMAGE:$GITHUB_SHA
-          kubectl get namespace markdown-to-pdf || kubectl create namespace markdown-to-pdf
+          kustomize edit set image zanaad/markdown-server=europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$SERVER_IMAGE:$GITHUB_SHA
+          kustomize edit set image zanaad/markdown-client=europe-west3-docker.pkg.dev/$PROJECT_ID/markdown-to-pdf-repo/$CLIENT_IMAGE:$GITHUB_SHA
+
           kubectl apply -k .
-          
-          # Add this to ensure kubectl uses the correct namespace
-          kubectl rollout status deployment markdown-to-pdf -n markdown-to-pdf
-          kubectl get services -n markdown-to-pdf
 
+          kubectl rollout status deployment markdown-client
+          kubectl rollout status deployment markdown-server
+
+          kubectl get services
