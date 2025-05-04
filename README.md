@@ -67,7 +67,7 @@ The Kubernetes configuration files in the `manifests/` directory include:
 
 ## Live Demo
 
-> 🔗 **Live App**: [http://34.160.150.137/](http://34.160.150.137/)
+> 🔗 **Live App**: [http://34.36.145.235/](http://34.36.145.235/)
 
 ---
 
